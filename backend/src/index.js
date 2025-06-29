@@ -3,13 +3,33 @@ import { PrismaClient } from '@prisma/client';
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getUserIdFromToken } from "./middleware/auth-user.js";
+import cors from 'cors';
+
 
 const app = express();
+app.use(cors({origin: 'http://localhost:3000', // Adjust this to your frontend URL
+credentials: true})); // Allow credentials for cookies, authorization headers, etc. 
 const prisma = new PrismaClient();
 
 app.use(express.json());
 
 const JWT_SECRET = 'your_secret_key'; 
+
+app.get('/profile', getUserIdFromToken, async (req, res) => {
+  const userId = req.userId;
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId }
+    });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+})
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -44,7 +64,6 @@ app.post('/login', async (req, res) => {
 
 app.post('/signup', async (req, res) => {
     const { name, email, password } = req.body;
-console.log("i am ghere")
     try {
         // Check if user already exists
         const existingUser = await prisma.user.findUnique({
