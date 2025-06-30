@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const BACKEND_URL = 'https://todo-production-f715.up.railway.app'
+//const BACKEND_URL = 'https://todo-production-f715.up.railway.app'
 
 const Navbar = () => {
     const {isAuthenticated, logout} = useAuth();
