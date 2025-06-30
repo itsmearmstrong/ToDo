@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { toast } from "sonner"
 
-const BACKEND_URL = 'http://localhost:8080'
+const BACKEND_URL = 'https://todo-production-f715.up.railway.app'
 
 const Card = ({ title, desc, id, setFetch }: { title: string, desc: string, id: string, setFetch: any }) => {
     
