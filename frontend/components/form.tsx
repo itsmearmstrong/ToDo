@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 
-const BACKEND_URL = 'http://localhost:8080'
+const BACKEND_URL = 'https://todo-production-f715.up.railway.app'
 
 const AddTodo = ({setTodos}: {setTodos: React.Dispatch<React.SetStateAction<never[]>>}) => {
     const [form, setForm] = useState({
