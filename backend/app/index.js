@@ -7,7 +7,7 @@ import cors from 'cors';
 
 
 const app = express();
-app.use(cors({origin: 'https://todo-rose-nu.vercel.app/', // Adjust this to your frontend URL
+app.use(cors({origin: 'https://todo-rose-nu.vercel.app', // Adjust this to your frontend URL
 credentials: true})); // Allow credentials for cookies, authorization headers, etc. 
 const prisma = new PrismaClient();
 
@@ -197,4 +197,10 @@ app.put('/todos/:id', getUserIdFromToken, async (req, res) => {
   }
 });
 
-app.listen(8080, () => console.log('Server running on port 8080'));
+//app.listen(8080, () => console.log('Server running on port 8080'));
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
