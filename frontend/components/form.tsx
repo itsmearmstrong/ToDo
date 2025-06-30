@@ -21,7 +21,7 @@ const AddTodo = ({setTodos}: {setTodos: React.Dispatch<React.SetStateAction<neve
                 body: JSON.stringify(form)
             })
             const data = await response.json();
-            //@ts-ignore
+            //@ts-expect-error
             setTodos(p => [...p, data])
             console.log(data)
         } catch (error) {
