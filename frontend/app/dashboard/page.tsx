@@ -4,7 +4,7 @@ import Card from '@/components/card';
 import AddTodo from '@/components/form';
 import CardLoader from '@/components/CardLoader';
 
-const BACKEND_URL = 'https://todo-production-f715.up.railway.app'
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
