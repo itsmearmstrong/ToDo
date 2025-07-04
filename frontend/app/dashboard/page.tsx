@@ -11,43 +11,43 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [fetchTodo , setFetch] = useState(false)
 
-useEffect(() => {
-  if (typeof window === 'undefined') return; // Only run on client
+  useEffect(() => {
+    if (typeof window === 'undefined') return; // Prevents running on server
 
-  const token = localStorage.getItem('auth');
+    const token = localStorage.getItem('auth');
 
-  const fetchTodos = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(`${BACKEND_URL}/get-todos`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+    const fetchTodos = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`${BACKEND_URL}/get-todos`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
 
-      const data = await response.json();
-      console.log("Fetched todos:", data);
+        const data = await response.json();
+        console.log("Fetched todos:", data);
 
-      if (Array.isArray(data)) {
-        setTodos(data);
-      } else if (Array.isArray(data.todos)) {
-        setTodos(data.todos);
-      } else {
-        console.error("Invalid todo data structure:", data);
+        if (Array.isArray(data)) {
+          setTodos(data);
+        } else if (Array.isArray(data.todos)) {
+          setTodos(data.todos);
+        } else {
+          console.error("Invalid todo data structure:", data);
+          setTodos([]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch todos:", error);
         setTodos([]);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Failed to fetch todos:", error);
-      setTodos([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  fetchTodos();
-}, [fetchTodo]);
+    fetchTodos();
+  }, [fetchTodo]);
 
   return (
     <div className=' w-full min-h-[90dvh] h-full flex justify-center gap-6 pt-6'>
