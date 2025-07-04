@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
+
 type Todo = {   id: string;
     title: string;
     description: string;
@@ -32,7 +33,7 @@ const AddTodo = ({setTodos}: {setTodos: React.Dispatch<React.SetStateAction<Todo
         } catch (error) {
             console.log(error)
         }
-    }
+    } 
     // return (
     //     <form>
     //         <input type="text" onChange={(e) => setForm({...form, title: e.target.value})} placeholder='Add a todo' className='w-full p-2 border rounded-2xl mb-4 text-black' />
