@@ -4,7 +4,7 @@ import Card from '@/components/card';
 import AddTodo from '@/components/form';
 import CardLoader from '@/components/CardLoader';
 
-const BACKEND_URL = 'https://todo-production-f715.up.railway.app'
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const Dashboard = () => {
   const [todos, setTodos] = useState<Array<{ id: string; title: string; description: string }>>([]);
@@ -12,42 +12,41 @@ const Dashboard = () => {
   const [fetchTodo , setFetch] = useState(false)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return; // Prevents running on server
+  const token = localStorage.getItem('auth');
 
-    const token = localStorage.getItem('auth');
+  const fetchTodos = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${BACKEND_URL}/get-todos`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
 
-    const fetchTodos = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(`${BACKEND_URL}/get-todos`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-        });
+      const data = await response.json();
+      console.log("Fetched todos:", data);
 
-        const data = await response.json();
-        console.log("Fetched todos:", data);
-
-        if (Array.isArray(data)) {
-          setTodos(data);
-        } else if (Array.isArray(data.todos)) {
-          setTodos(data.todos);
-        } else {
-          console.error("Invalid todo data structure:", data);
-          setTodos([]);
-        }
-      } catch (error) {
-        console.error("Failed to fetch todos:", error);
-        setTodos([]);
-      } finally {
-        setLoading(false);
+      // ✅ Add this check:
+      if (Array.isArray(data)) {
+        setTodos(data);
+      } else if (Array.isArray(data.todos)) {
+        setTodos(data.todos);
+      } else {
+        console.error("Invalid todo data structure:", data);
+        setTodos([]); // fallback to empty array
       }
-    };
+    } catch (error) {
+      console.error("Failed to fetch todos:", error);
+      setTodos([]); // fallback
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchTodos();
-  }, [fetchTodo]);
+  fetchTodos();
+}, [fetchTodo]);
 
   return (
     <div className=' w-full min-h-[90dvh] h-full flex justify-center gap-6 pt-6'>
