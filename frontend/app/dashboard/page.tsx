@@ -7,20 +7,22 @@ import CardLoader from '@/components/CardLoader';
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const Dashboard = () => {
+  const [todos, setTodos] = useState<Array<{ id: string; title: string; description: string }>>([]);
   const [loading, setLoading] = useState(true);
- const [todos, setTodos] = useState<Array<{ id: string; title: string; description: string }>>([]);
   const [fetchTodo , setFetch] = useState(false)
 
-useEffect(() => {
+  useEffect(() => {
   const token = localStorage.getItem('auth');
+
   const fetchTodos = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${BACKEND_URL}/get-todos`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
+          'Authorization': `Bearer ${token}`,
+        },
       });
 
       const data = await response.json();
@@ -38,6 +40,8 @@ useEffect(() => {
     } catch (error) {
       console.error("Failed to fetch todos:", error);
       setTodos([]); // fallback
+    } finally {
+      setLoading(false);
     }
   };
 
