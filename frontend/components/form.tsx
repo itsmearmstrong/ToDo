@@ -3,7 +3,12 @@ import React, { useState } from 'react'
 
 const BACKEND_URL = 'http://localhost:8080'
 
-const AddTodo = ({setTodos}: {setTodos: React.Dispatch<React.SetStateAction<never[]>>}) => {
+type Todo = {   id: string;
+    title: string;
+    description: string;
+}
+
+const AddTodo = ({setTodos}: {setTodos: React.Dispatch<React.SetStateAction<Todo[]>>}) => {
     const [form, setForm] = useState({
         title: '',
         description: ''

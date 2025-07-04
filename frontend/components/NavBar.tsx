@@ -7,7 +7,7 @@ import React from 'react'
 const BACKEND_URL = 'http://localhost:8080'
 
 const Navbar = () => {
-    const {isAuthenticated, logout} = useAuth();
+    const {isAuthenticated, logout,} = useAuth();
     const router = useRouter();
 
     const handleClick = () => {
@@ -18,6 +18,9 @@ const Navbar = () => {
             router.push('/login')
         }
     }
+
+    
+
     return (
         // <nav className='border rounded-3xl px-4 bg-white w-[80%] max-w-4xl mx-auto mt-4 flex items-center justify-between'>
         //     <div className=" text-black flex gap-4">

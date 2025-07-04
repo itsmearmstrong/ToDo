@@ -10,7 +10,6 @@ type AuthContextType = {
     userId: string
 };
 
-
 const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
     logout: () => { },
