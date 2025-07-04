@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 
-const BACKEND_URL = 'https://todo-production-f715.up.railway.app';
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 type Todo = {   id: string;
     title: string;
