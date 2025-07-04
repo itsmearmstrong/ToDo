@@ -11,7 +11,9 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [fetchTodo , setFetch] = useState(false)
 
-  useEffect(() => {
+useEffect(() => {
+  if (typeof window === 'undefined') return; // Only run on client
+
   const token = localStorage.getItem('auth');
 
   const fetchTodos = async () => {
@@ -28,22 +30,24 @@ const Dashboard = () => {
       const data = await response.json();
       console.log("Fetched todos:", data);
 
-      // ✅ Add this check:
       if (Array.isArray(data)) {
         setTodos(data);
       } else if (Array.isArray(data.todos)) {
         setTodos(data.todos);
       } else {
         console.error("Invalid todo data structure:", data);
-        setTodos([]); // fallback to empty array
+        setTodos([]);
       }
     } catch (error) {
       console.error("Failed to fetch todos:", error);
-      setTodos([]); // fallback
+      setTodos([]);
     } finally {
       setLoading(false);
     }
   };
+
+  fetchTodos();
+}, [fetchTodo]);
 
   fetchTodos();
 }, [fetchTodo]);
