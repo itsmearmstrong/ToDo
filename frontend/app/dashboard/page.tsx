@@ -49,9 +49,6 @@ useEffect(() => {
   fetchTodos();
 }, [fetchTodo]);
 
-  fetchTodos();
-}, [fetchTodo]);
-
   return (
     <div className=' w-full min-h-[90dvh] h-full flex justify-center gap-6 pt-6'>
       <div className="w-[20%] min-w-[300px]  h-full border-r pr-6">
