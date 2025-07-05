@@ -3,36 +3,27 @@ import React, { useState } from 'react'
 
 const BACKEND_URL = 'https://todo-production-f715.up.railway.app';
 
-type Todo = {   id: string;
-    title: string;
-    description: string;
-}
+const onSubmit = async () => {
+  try {
+    const token = localStorage.getItem('auth');
+    const response = await fetch(`${BACKEND_URL}/create-todo`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(form)
+    });
 
-const AddTodo = ({setTodos}: {setTodos: React.Dispatch<React.SetStateAction<Todo[]>>}) => {
-    const [form, setForm] = useState({
-        title: '',
-        description: ''
-    })
-    
-    const onSubmit = async() => {
-        try {
-            const token = localStorage.getItem('auth')
-            const response = await fetch(`${BACKEND_URL}/create-todo`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(form)
-            })
-            const data = await response.json();
-            //@ts-ignore
-            setTodos(p => [...p, data])
-            console.log(data)
-        } catch (error) {
-            console.log(error)
-        }
-    } 
+    const data: Todo = await response.json();
+    setTodos(p => [...p, data]);
+    setForm({ title: '', description: '' }); // clear form
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
     // return (
     //     <form>
     //         <input type="text" onChange={(e) => setForm({...form, title: e.target.value})} placeholder='Add a todo' className='w-full p-2 border rounded-2xl mb-4 text-black' />
