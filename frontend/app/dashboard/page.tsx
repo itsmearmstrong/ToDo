@@ -1,13 +1,19 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Card from '@/components/card';
 import AddTodo from '@/components/form';
 import CardLoader from '@/components/CardLoader';
 
 const BACKEND_URL = 'https://todo-production-f715.up.railway.app';
 
+type Todo = {
+  id: string;
+  title: string;
+  description: string;
+};
+
 const Dashboard = () => {
-  const [todos, setTodos] = useState<Array<{ id: string; title: string; description: string }>>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
   const [fetchTodo, setFetch] = useState(false);
 
@@ -44,8 +50,8 @@ const Dashboard = () => {
       }
     };
 
-    fetchTodos(); // ✅ Called *inside* useEffect
-  }, [fetchTodo]); // ✅ useEffect closes here
+    fetchTodos(); // ✅ Must be inside the useEffect
+  }, [fetchTodo]);
 
   return (
     <div className='w-full min-h-[90dvh] h-full flex justify-center gap-6 pt-6'>
