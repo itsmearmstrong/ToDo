@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { toast } from "sonner"
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
+const BACKEND_URL = 'todo-production-f715.up.railway.app';
 
 const Card = ({ title, desc, id, setFetch }: { title: string, desc: string, id: string, setFetch: any }) => {
     
