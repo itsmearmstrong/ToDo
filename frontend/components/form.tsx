@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 
-const BACKEND_URL = 'todo-production-f715.up.railway.app';
+const BACKEND_URL = 'https://todo-production-f715.up.railway.app';
 
 type Todo = {   id: string;
     title: string;
