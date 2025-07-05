@@ -4,7 +4,7 @@ import Card from '@/components/card';
 import AddTodo from '@/components/form';
 import CardLoader from '@/components/CardLoader';
 
-const BACKEND_URL = 'https://todo-production-f715.up.railway.app'; // Add https://
+const BACKEND_URL = 'https://todo-production-f715.up.railway.app'; // Add protocol
 
 const Dashboard = () => {
   const [todos, setTodos] = useState<Array<{ id: string; title: string; description: string }>>([]);
@@ -44,8 +44,8 @@ const Dashboard = () => {
       }
     };
 
-    fetchTodos();
-  }, [fetchTodo]); // ✅ Only once
+    fetchTodos(); // ✅ INSIDE useEffect
+  }, [fetchTodo]);
 
   return (
     <div className='w-full min-h-[90dvh] h-full flex justify-center gap-6 pt-6'>
@@ -71,3 +71,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
