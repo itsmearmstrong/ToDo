@@ -9,7 +9,6 @@ export function getUserIdFromToken(req, res, next) {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ error: 'Authorization token missing or invalid' });
     }
-    // Bearer sdbkvjbkdnfsv ["Bearer", "kgdshvofds"]
 
     const token = authHeader.split(' ')[1]; 
 

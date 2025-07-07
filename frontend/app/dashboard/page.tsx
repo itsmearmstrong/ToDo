@@ -12,7 +12,7 @@ const Dashboard = () => {
   const [fetchTodo , setFetch] = useState(false)
 
   useEffect(() => {
-  const token = localStorage.getItem('auth');
+  const token = localStorage.getItem("auth");
 
   const fetchTodos = async () => {
     setLoading(true);
