@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const token = localStorage.getItem('auth');
         const userProfile = async () => {
             try {
-                const response = await fetch(`${BACKEND_URL}/user-profile`, {
+                const response = await fetch(`${BACKEND_URL}/profile`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
