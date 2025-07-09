@@ -7,7 +7,7 @@ import cors from 'cors';
 
 
 const app = express();
-app.use(cors({origin: 'https://todoyo.vercel.app', // Adjust this to your frontend URL
+app.use(cors({origin: 'http://localhost:3000', // Adjust this to your frontend URL
 credentials: true})); // Allow credentials for cookies, authorization headers, etc. 
 const prisma = new PrismaClient();
 
