@@ -3,9 +3,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/authContext';
 
-
-const BACKEND_URL = 'http://localhost:8080'
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const Signup = () => {
 
