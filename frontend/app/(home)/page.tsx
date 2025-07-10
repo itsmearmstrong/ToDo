@@ -16,7 +16,7 @@ function Page() {
           onLetterAnimationComplete={handleAnimationComplete} />
       <h2 className='text-3xl font-semibold p-4'>Plan . Prioritize . Achieve</h2>
       <p className='text-lg font-normal mt-3'>Get started organizing your life with Todo. Your smart task companion.</p>
-      <p className='text-lgfont-normal'>Designed to adapt, built to get things done.</p>
+      <p className='text-lg font-normal'>Designed to adapt, built to get things done.</p>
     </div>
   )
 }
